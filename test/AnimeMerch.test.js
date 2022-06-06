@@ -8,7 +8,8 @@ require("chai").use(require("chai-as-promised")).should();
 contract("AnimeMerch", (accounts) => {
   let k;
   before(async () => {
-    k = await AnimeMerch.deployed();
+    // k = await AnimeMerch.deployed();
+    k = await AnimeMerch;
   });
 
   describe("AnimeMerch", () => {
