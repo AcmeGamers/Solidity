@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import '@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol';
 import './ERC165.sol';
 
-contract ERC721Metadata is IERC721Metadata, ERC165 {
+abstract contract ERC721Metadata is IERC721Metadata, ERC165 {
 
     string private _name;
     string private _symbol;
