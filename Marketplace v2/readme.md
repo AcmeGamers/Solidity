@@ -39,5 +39,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Modules
 
-- [React](https://reactjs.org/) / [Next](https://nextjs.org/)
+### Front-End / Back-End
+
+- [React](https://reactjs.org/)
+- [Next](https://nextjs.org/)
+- [SASS](https://sass-lang.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [Material UI](https://material-ui.com/)
+
+### Other
+
 - [@openzeppelin/contracts](https://www.npmjs.com/package/@openzeppelin/contracts)
+- [Chai](https://www.npmjs.com/package/chai)
+- [Chai-As-Promised](https://www.npmjs.com/package/chai-as-promised)
