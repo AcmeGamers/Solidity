@@ -53,3 +53,37 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - [@openzeppelin/contracts](https://www.npmjs.com/package/@openzeppelin/contracts)
 - [Chai](https://www.npmjs.com/package/chai)
 - [Chai-As-Promised](https://www.npmjs.com/package/chai-as-promised)
+
+## Truffle Commands
+
+Build the contracts:
+
+```bash
+truffle build
+```
+
+Compile the contracts:
+
+```bash
+truffle compile
+```
+
+Something is messed up.
+
+```bash
+truffle migrate --reset --compile-all
+```
+
+<!--
+Deploy the contracts:
+
+```bash
+truffle migrate --network rinkeby
+```
+
+Deploy the contracts to the Rinkeby test network:
+
+```bash
+truffle migrate --network rinkeby --reset
+```
+-->
