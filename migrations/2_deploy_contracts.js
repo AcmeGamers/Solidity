@@ -1,4 +1,4 @@
-const AnimeMerch = artifacts.require("AnimeMerch");
+const AnimeMerch = artifacts.require("Anime");
 
 module.exports = function (deployer) {
   deployer.deploy(AnimeMerch);
