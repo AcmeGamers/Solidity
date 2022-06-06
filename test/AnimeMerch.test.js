@@ -1,76 +1,56 @@
-const chai = require("chai");
-var assert = chai.assert;
-const AnimeMerch = artifacts.require("./AnimeMerch");
+const { expect } = require("chai");
 
-// Checking for Chai
-require("chai").use(require("chai-as-promised")).should();
+describe("NFTMarket", function () {
+  it("Should create and execute market sales", async function () {
+    /* deploy the marketplace */
+    const NFTMarketplace = await ethers.getContractFactory("NFTMarketplace");
+    const nftMarketplace = await NFTMarketplace.deploy();
+    await nftMarketplace.deployed();
 
-contract("AnimeMerch", (accounts) => {
-  let k;
-  before(async () => {
-    k = await AnimeMerch.deployed();
-  });
+    let listingPrice = await nftMarketplace.getListingPrice();
+    listingPrice = listingPrice.toString();
 
-  describe("AnimeMerch", () => {
-    it("Deployed Sucessfully", async () => {
-      let address = k.address;
-      assert.notEqual(address, "");
-      assert.notEqual(address, null);
-      assert.notEqual(address, undefined);
-      assert.notEqual(address, 0x0);
-    });
-    it("Has Name", async () => {
-      let name = await k.name();
-      assert.equal(name, "AnimeMerch");
-    });
-    it("Has Symbol", async () => {
-      let symbol = await k.symbol();
-      assert.equal(symbol, "AM");
-    });
-  });
+    const auctionPrice = ethers.utils.parseUnits("1", "ether");
 
-  describe("minting", async () => {
-    it("Creates a new token", async () => {
-      const mint = await k.mint("https...1"),
-        totalSupply = await k.totalSupply();
+    /* create two tokens */
+    await nftMarketplace.createToken(
+      "https://www.mytokenlocation.com",
+      auctionPrice,
+      { value: listingPrice }
+    );
+    await nftMarketplace.createToken(
+      "https://www.mytokenlocation2.com",
+      auctionPrice,
+      { value: listingPrice }
+    );
 
-      // Success Region
-      assert.equal(totalSupply, 1);
-      const event = mint.logs[0].args;
-      assert.equal(
-        event._from,
-        "0x0000000000000000000000000000000000000000",
-        "Event passed from the contract"
-      );
-      assert.equal(event._to, accounts[0], "Obtained by msg.sender");
+    const [_, buyerAddress] = await ethers.getSigners();
 
-      // failure
-      await k.mint("https...1").should.be.rejected;
-    });
-  });
+    /* execute sale of token to another user */
+    await nftMarketplace
+      .connect(buyerAddress)
+      .createMarketSale(1, { value: auctionPrice });
 
-  describe("Indexing", async () => {
-    it("Lists of AnimeMerch", async () => {
-      await k.mint("https...2");
-      await k.mint("https...3");
-      await k.mint("https...4");
-      let totalSupply_2 = await k.totalSupply(),
-        result = [],
-        AnimeMerch,
-        expected = ["https...1", "https...2", "https...3", "https...4"];
+    /* resell a token */
+    await nftMarketplace
+      .connect(buyerAddress)
+      .resellToken(1, auctionPrice, { value: listingPrice });
 
-      for (let i = 1; i <= totalSupply_2; i++) {
-        AnimeMerch = await k.AnimeMerch(i - 1);
-        result.push(AnimeMerch);
-        // result.push(await k.AnimeMerch(i - 1));
-        // result.push("1");
-      }
-
-      assert.equal(
-        result.length,
-        expected.length,
-        `Lists compiled succesfully, all the contracts are in the list. \nResult = ${result}\nExpected = ${expected}`
-      );
-    });
+    /* query for and return the unsold items */
+    items = await nftMarketplace.fetchMarketItems();
+    items = await Promise.all(
+      items.map(async (i) => {
+        const tokenUri = await nftMarketplace.tokenURI(i.tokenId);
+        let item = {
+          price: i.price.toString(),
+          tokenId: i.tokenId.toString(),
+          seller: i.seller,
+          owner: i.owner,
+          tokenUri,
+        };
+        return item;
+      })
+    );
+    console.log("items: ", items);
   });
 });

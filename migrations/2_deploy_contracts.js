@@ -1,11 +1,11 @@
-const AnimeMerch = artifacts.require("AnimeMerch");
+const MFTMarket = artifacts.require("MFTMarket");
 
 module.exports = function (deployer) {
   deployer
-    .deploy(AnimeMerch) // Option 2) Console log the address:
-    .then(() => console.log(AnimeMerch.address))
+    .deploy(MFTMarket) // Option 2) Console log the address:
+    .then(() => console.log(MFTMarket.address))
 
     // Option 3) Retrieve the contract instance and get the address from that:
-    .then(() => AnimeMerch.deployed())
+    .then(() => MFTMarket.deployed())
     .then((_instance) => console.log(_instance.address));
 };
