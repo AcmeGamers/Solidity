@@ -2,7 +2,6 @@ const chai = require("chai");
 var assert = chai.assert;
 const AnimeMerch = artifacts.require("./AnimeMerch");
 
-// Checking for Chai
 require("chai").use(require("chai-as-promised")).should();
 
 contract("AnimeMerch", (accounts) => {
@@ -25,18 +24,19 @@ contract("AnimeMerch", (accounts) => {
     });
     it("Has Symbol", async () => {
       let symbol = await k.symbol();
-      assert.equal(symbol, "KBIRDZ");
+      assert.equal(symbol, "MerchSymbol");
     });
   });
 
   describe("minting", async () => {
     it("Creates a new token", async () => {
       const mint = await k.mint("https...1"),
-        totalSupply = await k.totalSupply();
+        totalSupply = await k.totalSupply(),
+        event = mint.logs[0].args;
 
       // Success Region
       assert.equal(totalSupply, 1);
-      const event = mint.logs[0].args;
+
       assert.equal(
         event._from,
         "0x0000000000000000000000000000000000000000",
