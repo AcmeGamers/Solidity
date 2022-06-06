@@ -1,4 +1,4 @@
-const MFTMarket = artifacts.require("MFTMarket");
+const MFTMarket = artifacts.require("NFTMarket");
 
 module.exports = function (deployer) {
   deployer
