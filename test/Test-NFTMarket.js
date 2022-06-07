@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 describe("NFTMarket", function () {
   it("Should create and execute market sales", async function () {
     /* deploy the marketplace */
