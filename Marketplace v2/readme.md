@@ -53,6 +53,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - [@openzeppelin/contracts](https://www.npmjs.com/package/@openzeppelin/contracts)
 - [Chai](https://www.npmjs.com/package/chai)
 - [Chai-As-Promised](https://www.npmjs.com/package/chai-as-promised)
+- [ethers](https://www.npmjs.com/package/ethers)
 
 ## Truffle Commands
 
